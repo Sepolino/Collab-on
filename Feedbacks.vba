@@ -106,8 +106,7 @@ End Sub
 
 Sub FormatacaoRespostas()
 
-    Const Respostas As String = "Respostas - Segunda-feira"
-    ThisWorkbook.Sheets(Respostas).Activate
+    ThisWorkbook.Sheets("Respostas - Segunda - feira").Activate
     
     Range("B:J").Delete Shift:=xlShiftLeft
     
@@ -142,5 +141,7 @@ Sub ExecutarSubs()
   PularLinhas
   CriarBlocoNPS
   Criar_RenomearAba
+  ImportarDadosDeRespostas
+  FormatacaoRespostas
 End Sub
 
