@@ -106,11 +106,14 @@ End Sub
 
 Sub FormatacaoRespostas()
 
-    ThisWorkbook.Sheets("Respostas - Segunda - feira").Activate
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Respostas - Segunda-feira")
     
-    Range("B:J").Delete Shift:=xlShiftLeft
+    ws.Activate
     
-    With Columns("B")
+    ws.Range("B:J").Delete Shift:=xlShiftLeft
+    
+    With ws.Columns("B")
     
         .FormatConditions.Add( _
             Type:=xlCellValue, _
@@ -131,8 +134,8 @@ Sub FormatacaoRespostas()
 
     End With
     
+    MsgBox ActiveSheet.Name
     Range("A:C").ColumnWidth = 15
-    
     
 End Sub
 
@@ -144,4 +147,3 @@ Sub ExecutarSubs()
   ImportarDadosDeRespostas
   FormatacaoRespostas
 End Sub
-
