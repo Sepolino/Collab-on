@@ -107,10 +107,8 @@ End Sub
 Sub FormatacaoRespostas()
 
     Dim ws As Worksheet
-    Dim rngB As Range
-    Dim rngTab As Range
+    Dim rng As Range
     Dim UltimaLinha As Long
-    Dim UltimaCell As Long
     
     Set ws = ThisWorkbook.Sheets("Respostas - Segunda-feira")
     
@@ -119,9 +117,10 @@ Sub FormatacaoRespostas()
     ws.Range("B:J").Delete Shift:=xlShiftLeft
     
     UltimaLinha = ws.Cells(ws.Rows.Count, "B").End(xlUp).Row
-    Set rngB = ws.Range("B2:B" & UltimaLinha)
+    Set rng = ws.Range("B2:B" & UltimaLinha)
     
-    With rngB
+    
+    With rng
         .FormatConditions.Add( _
             Type:=xlCellValue, _
             Operator:=xlGreaterEqual, _
@@ -147,13 +146,11 @@ Sub FormatacaoRespostas()
             On Error GoTo 0
         End If
     Next cell
-    
-    UltimaCell = ws.Cells(ws.Rows.Count, "C").End(xlUp).Row
-    Set rngTab = ws.Range("A1:C1" & UltimaCell)
-    rngTab.ListObject.Add(xlSrcRange, rngTab, , xlYes).Name = "TabelaRespostas"
-    
+     
+    ws.Range("A1:C1").Interior.Color = RGB(103, 190, 217)
+    ws.Range("A1:C1").Font.Color = RGB(255, 255, 255)
     ws.Columns("B").NumberFormat = "#,##0"
-    ws.Columns("B").HorizontalAlignment = xlCenter
+    ws.Range("B2:B" & UltimaLinha).HorizontalAlignment = xlCenter
     ws.Columns("A").AutoFit
     ws.Columns("C").AutoFit
     
