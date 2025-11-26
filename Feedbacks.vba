@@ -1,5 +1,5 @@
 Sub RenomearAba()
-    Worksheets("Sheet1").Name = "Análise - Segunda-feira"
+    ThisWorkbook.Sheets("Sheet1").Name = "Análise - Segunda-feira"
 End Sub
 
 Sub PularLinhas()
@@ -107,35 +107,57 @@ End Sub
 Sub FormatacaoRespostas()
 
     Dim ws As Worksheet
+    Dim rngB As Range
+    Dim rngTab As Range
+    Dim UltimaLinha As Long
+    Dim UltimaCell As Long
+    
     Set ws = ThisWorkbook.Sheets("Respostas - Segunda-feira")
     
     ws.Activate
     
     ws.Range("B:J").Delete Shift:=xlShiftLeft
     
-    With ws.Columns("B")
+    UltimaLinha = ws.Cells(ws.Rows.Count, "B").End(xlUp).Row
+    Set rngB = ws.Range("B2:B" & UltimaLinha)
     
+    With rngB
         .FormatConditions.Add( _
             Type:=xlCellValue, _
-            Operator:=xlBetween, _
-            Formula1:="0", _
-            Formula2:="7").Interior.Color = RGB(255, 199, 206)
-        
+            Operator:=xlGreaterEqual, _
+            Formula1:="9").Interior.Color = RGB(198, 239, 206)
+            
         .FormatConditions.Add( _
             Type:=xlCellValue, _
             Operator:=xlBetween, _
             Formula1:="7", _
             Formula2:="8").Interior.Color = RGB(255, 235, 156)
-        
+            
         .FormatConditions.Add( _
             Type:=xlCellValue, _
-            Operator:=xlGreaterEqual, _
-            Formula1:="9").Interior.Color = RGB(198, 239, 206)
-
+            Operator:=xlLess, _
+            Formula1:="7").Interior.Color = RGB(255, 199, 206)
+        
     End With
     
-    MsgBox ActiveSheet.Name
-    Range("A:C").ColumnWidth = 15
+    For Each cell In ws.Range("B1:B" & UltimaLinha)
+        If cell.Value <> "" Then
+            On Error Resume Next
+            cell.Value = CLng(cell.Value)
+            On Error GoTo 0
+        End If
+    Next cell
+    
+    UltimaCell = ws.Cells(ws.Rows.Count, "C").End(xlUp).Row
+    Set rngTab = ws.Range("A1:C1" & UltimaCell)
+    rngTab.ListObject.Add(xlSrcRange, rngTab, , xlYes).Name = "TabelaRespostas"
+    
+    ws.Columns("B").NumberFormat = "#,##0"
+    ws.Columns("B").HorizontalAlignment = xlCenter
+    ws.Columns("A").AutoFit
+    ws.Columns("C").AutoFit
+    
+    Range("A:C").ColumnWidth = 20
     
 End Sub
 
