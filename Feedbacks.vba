@@ -171,6 +171,7 @@ End Sub
 Sub ExecutarSubs()
   RenomearAba
   PularLinhas
+  Bordas
   CriarBlocoNPS
   Criar_RenomearAba
   ImportarDadosDeRespostas
