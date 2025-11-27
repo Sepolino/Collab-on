@@ -75,6 +75,25 @@ Sub CriarBlocoNPS()
     Range("F:I").ColumnWidth = 15
 End Sub
 
+Sub grafico()
+   Dim ws As Worksheet
+   Dim grafico As ChartObject
+   Dim dadosFonte As Range
+   
+   Set ws = ActiveWorkbook.Sheets(Análise - Segunda - feira)
+   Set dadosFonte = ws.Range("C6:C7")
+   
+   Set grafico = ws.ChartObjects.Add(100, 50, 400, 300)
+   
+   With grafico.Chart
+      .ChartType = xlColumnClustered
+      .SetSourceData Source:=dadosFonte
+      .HasTitle = True
+      .ChartTitle.Text = "Distribuição de Notas de Avaliação"
+      .HasLegend = False
+    End With
+End Sub
+
 Sub Criar_RenomearAba()
   Worksheets.Add
   Worksheets("Planilha1").Name = "Respostas - Segunda-feira"
@@ -93,7 +112,7 @@ Sub ImportarDadosDeRespostas()
     
     ' --- AJUSTE AQUI ---
     ' Defina o caminho e nome do arquivo de respostas externo
-    CaminhoDoArquivo = "C:\Users\marcu\Downloads\Cursos\NEO4\MOD-22\FEEDBACK\"
+    CaminhoDoArquivo = "C:\Users\Colabon 07\Downloads\Cursos\NEO4\Respostas (VBA)\"
     NomeDoArquivo = "resposta.xlsx"
     Set wsDestino = ActiveWorkbook.Sheets("Respostas - Segunda-feira") ' Sua aba de destino
     ' ------------------
@@ -177,5 +196,4 @@ Sub ExecutarSubs()
   ImportarDadosDeRespostas
   FormatacaoRespostas
 End Sub
-
 
