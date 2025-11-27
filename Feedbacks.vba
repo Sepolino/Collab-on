@@ -104,7 +104,7 @@ Sub grafico()
         .SetSourceData Source:=ws.Range("C6:M7")
         .ChartType = xlColumnClustered
         .HasTitle = True
-        .ChartTitle.Text = "Gráfico de Respostas"
+        .ChartTitle.Text = "Gráfico Visual"
     End With
     
     With grafico.SeriesCollection(1).Interior
