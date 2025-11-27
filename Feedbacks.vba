@@ -1,5 +1,5 @@
 Sub RenomearAba()
-    ThisWorkbook.Sheets("Sheet1").Name = "Análise - Segunda-feira"
+    ActiveWorkbook.Sheets("Sheet1").Name = "Análise - Segunda-feira"
 End Sub
 
 Sub PularLinhas()
@@ -66,7 +66,7 @@ End Sub
 Sub Criar_RenomearAba()
   Worksheets.Add
   Worksheets("Planilha1").Name = "Respostas - Segunda-feira"
-  ThisWorkbook.Sheets("Respostas - Segunda-feira").Move After:=ThisWorkbook.Sheets("Análise - Segunda-feira")
+  ActiveWorkbook.Sheets("Respostas - Segunda-feira").Move After:=ActiveWorkbook.Sheets("Análise - Segunda-feira")
 End Sub
 
 Sub ImportarDadosDeRespostas()
@@ -83,7 +83,7 @@ Sub ImportarDadosDeRespostas()
     ' Defina o caminho e nome do arquivo de respostas externo
     CaminhoDoArquivo = "C:\Users\marcu\Downloads\Cursos\NEO4\MOD-22\FEEDBACK\"
     NomeDoArquivo = "resposta.xlsx"
-    Set wsDestino = ThisWorkbook.Sheets("Respostas - Segunda-feira") ' Sua aba de destino
+    Set wsDestino = ActiveWorkbook.Sheets("Respostas - Segunda-feira") ' Sua aba de destino
     ' ------------------
     
     If Dir(CaminhoDoArquivo & NomeDoArquivo) = "" Then
@@ -110,7 +110,7 @@ Sub FormatacaoRespostas()
     Dim rng As Range
     Dim UltimaLinha As Long
     
-    Set ws = ThisWorkbook.Sheets("Respostas - Segunda-feira")
+    Set ws = ActiveWorkbook.Sheets("Respostas - Segunda-feira")
     
     ws.Activate
     
@@ -154,8 +154,6 @@ Sub FormatacaoRespostas()
     ws.Columns("A").AutoFit
     ws.Columns("C").AutoFit
     
-    Range("A:C").ColumnWidth = 20
-    
 End Sub
 
 Sub ExecutarSubs()
@@ -166,3 +164,4 @@ Sub ExecutarSubs()
   ImportarDadosDeRespostas
   FormatacaoRespostas
 End Sub
+
