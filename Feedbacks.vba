@@ -7,6 +7,18 @@ Sub PularLinhas()
   Range("B9:E30").Cut Range("B30")
 End Sub
 
+Sub Bordas()
+   Dim ws As Worksheet
+   Dim rng As Range
+   Set rng = ActiveWorkbook.Sheets("Análise - Segunda-feira").Range("B6:M8")
+   
+   With rng.Borders
+        .LineStyle = xlContinuous
+        .Weight = xlThin
+        .ColorIndex = 0
+     End With
+End Sub
+
 Sub CriarBlocoNPS()
 
     ' Cabeçalho preto
@@ -164,4 +176,5 @@ Sub ExecutarSubs()
   ImportarDadosDeRespostas
   FormatacaoRespostas
 End Sub
+
 
