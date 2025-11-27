@@ -77,21 +77,41 @@ End Sub
 
 Sub grafico()
    Dim ws As Worksheet
-   Dim grafico As ChartObject
-   Dim dadosFonte As Range
+   Dim graficoObject As ChartObject
+   Dim grafico As Chart
    
-   Set ws = ActiveWorkbook.Sheets(Análise - Segunda - feira)
-   Set dadosFonte = ws.Range("C6:C7")
+   Set ws = ActiveWorkbook.Sheets("Análise - Segunda-feira")
    
-   Set grafico = ws.ChartObjects.Add(100, 50, 400, 300)
-   
-   With grafico.Chart
-      .ChartType = xlColumnClustered
-      .SetSourceData Source:=dadosFonte
-      .HasTitle = True
-      .ChartTitle.Text = "Distribuição de Notas de Avaliação"
-      .HasLegend = False
+   Dim PosicaoEsquerda As Double
+   Dim PosicaoTopo As Double
+    
+    With ws.Range("C10")
+        PosicaoEsquerda = .Left
+        PosicaoTopo = .Top
     End With
+
+   Set graficoObject = ws.ChartObjects.Add( _
+        Left:=PosicaoEsquerda, _
+        Top:=PosicaoTopo, _
+        Width:=500, _
+        Height:=300 _
+    )
+
+   Set grafico = graficoObject.Chart
+    
+    With grafico
+        ' Fonte dados
+        .SetSourceData Source:=ws.Range("C6:M7")
+        .ChartType = xlColumnClustered
+        .HasTitle = True
+        .ChartTitle.Text = "Gráfico de Respostas"
+    End With
+    
+    With grafico.SeriesCollection(1).Interior
+        .Color = RGB(252, 35, 43)
+    End With
+    
+    grafico.SeriesCollection(1).Name = "Respostas"
 End Sub
 
 Sub Criar_RenomearAba()
@@ -192,6 +212,7 @@ Sub ExecutarSubs()
   PularLinhas
   Bordas
   CriarBlocoNPS
+  grafico
   Criar_RenomearAba
   ImportarDadosDeRespostas
   FormatacaoRespostas
